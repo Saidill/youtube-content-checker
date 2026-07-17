@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wireframe - YouTube Content Checker</title>
+  <style>
+    :root {
+      --bg: #f5f5f5;
+      --paper: #ffffff;
+      --panel: #fafafa;
+      --panel-2: #f1f1f1;
+      --line: #8a8a8a;
+      --line-soft: #c7c7c7;
+      --muted: #777777;
+      --text: #222222;
+      --shade: #e8e8e8;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--bg); color: var(--text); font-family: Arial, Helvetica, sans-serif; }
+    body { width: var(--w); min-height: var(--h); overflow: hidden; }
+    .canvas { width: var(--w); min-height: var(--h); background: var(--paper); border: 1px solid var(--line); position: relative; }
+    .topbar { height: 64px; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 220px 1fr 180px; align-items: center; padding: 12px 18px; gap: 18px; background: #fff; }
+    .brand { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 16px; color: #333; }
+    .yt-icon { width: 24px; height: 16px; border: 1px solid var(--line); border-radius: 2px; position: relative; background: #fff; }
+    .yt-icon:after { content: ""; position: absolute; left: 8px; top: 4px; border-left: 7px solid #777; border-top: 4px solid transparent; border-bottom: 4px solid transparent; }
+    .brand span:last-child { color: #333; }
+    .searchbar { justify-self: center; width: min(650px, 100%); height: 36px; border: 1px solid var(--line); border-radius: 3px; background: var(--panel); display: flex; align-items: center; padding: 0 14px; color: var(--muted); font-size: 13px; }
+    .search-action { width: 36px; height: 36px; margin-left: 8px; border: 1px solid var(--line); border-radius: 3px; display: grid; place-items: center; color: var(--muted); font-size: 20px; background: #fff; }
+    .safety { justify-self: end; color: var(--muted); font-size: 12px; display: flex; align-items: center; gap: 8px; border: 1px solid var(--line-soft); padding: 8px 10px; background: var(--panel); }
+    .main { display: grid; grid-template-columns: 250px 1fr; min-height: calc(var(--h) - 64px); }
+    .sidebar { border-right: 1px solid var(--line); padding: 18px 16px; background: #fbfbfb; }
+    .label { color: #444; font-size: 11px; letter-spacing: .08em; font-weight: 700; text-transform: uppercase; margin-bottom: 14px; }
+    .model { height: 48px; border: 1px solid var(--line); border-radius: 3px; background: #fff; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; font-size: 13px; font-weight: 700; }
+    .model.active { border-width: 2px; background: var(--shade); color: #111; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #777; }
+    .note { margin-top: 22px; border: 1px solid var(--line); background: #fff; border-radius: 3px; padding: 14px 12px; color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .note strong { display: block; color: #333; margin-bottom: 8px; }
+    .content { position: relative; }
+
+    .empty { height: calc(var(--h) - 64px); display: grid; place-items: center; padding: 34px; }
+    .empty-inner { text-align: center; width: 620px; }
+    .large-icon { width: 92px; height: 92px; border-radius: 50%; background: #fff; border: 1px solid var(--line); margin: 0 auto 22px; display: grid; place-items: center; }
+    h1 { margin: 0 auto 16px; font-size: 24px; line-height: 1.2; font-weight: 700; width: 360px; }
+    .subcopy { color: var(--muted); font-size: 14px; line-height: 1.5; margin: 0 auto 28px; width: 520px; }
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .feature { height: 52px; border: 1px solid var(--line); border-radius: 3px; background: #fff; display: flex; align-items: center; gap: 12px; padding: 0 16px; color: #444; font-size: 13px; text-align: left; }
+    .tiny-icon { width: 18px; height: 18px; border: 1px solid var(--line); border-radius: 2px; display: inline-block; background: var(--shade); }
+
+    .result-layout { display: grid; grid-template-columns: minmax(680px, 1fr) 310px; gap: 26px; padding: 18px 20px 28px; align-items: start; }
+    .video-panel { max-width: 720px; }
+    .thumb { height: 405px; border-radius: 3px; background: #fff; border: 1px solid var(--line); position: relative; overflow: hidden; }
+    .thumb:before, .thumb:after { content: ""; position: absolute; inset: 0; }
+    .thumb:before { background: linear-gradient(to bottom right, transparent 49.8%, var(--line) 50%, transparent 50.2%), linear-gradient(to top right, transparent 49.8%, var(--line) 50%, transparent 50.2%); }
+    .thumb:after { inset: 24px 28px auto 28px; height: 110px; background: repeating-linear-gradient(0deg, transparent 0 24px, var(--line-soft) 24px 32px); }
+    .play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 68px; height: 48px; border-radius: 3px; border: 1px solid var(--line); background: var(--shade); z-index: 2; display: grid; place-items: center; }
+    .play:after { content: ""; border-left: 16px solid #777; border-top: 10px solid transparent; border-bottom: 10px solid transparent; margin-left: 4px; }
+    .badge { position: absolute; right: 14px; top: 14px; z-index: 2; background: #fff; border: 1px solid var(--line); border-radius: 3px; padding: 8px 14px; font-size: 12px; font-weight: 700; color: #333; }
+    .line-title { height: 24px; background: var(--shade); border: 1px solid var(--line-soft); border-radius: 2px; margin-top: 18px; width: 460px; }
+    .meta { display: flex; gap: 14px; color: var(--muted); font-size: 12px; margin-top: 12px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 16px; }
+    .chip { height: 22px; min-width: 64px; border: 1px solid var(--line); border-radius: 3px; background: #fff; }
+    .desc { height: 66px; border: 1px solid var(--line); border-radius: 3px; background: #fff; margin-top: 16px; padding: 13px; }
+    .desc .skeleton, .comment .skeleton, .transcript .skeleton, .card .skeleton { height: 10px; border-radius: 2px; background: #b8b8b8; margin-bottom: 9px; }
+    .section-head { color: var(--muted); font-size: 12px; font-weight: 800; letter-spacing: .08em; margin: 18px 0 10px; text-transform: uppercase; }
+    .comment { height: 40px; border: 1px solid var(--line); border-radius: 3px; background: #fff; padding: 13px 12px; margin-bottom: 8px; }
+    .transcript { height: 145px; border: 1px solid var(--line); border-radius: 3px; background: #fff; padding: 14px 12px; margin-top: 18px; }
+    .right-rail { display: grid; gap: 12px; }
+    .card { border: 1px solid var(--line); border-radius: 3px; background: #fff; padding: 14px 12px; }
+    .card.red, .card.blue, .card.purple { border-color: var(--line); background: #fff; }
+    .card-title { display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 700; margin-bottom: 14px; color: #333; }
+    .pill { border-radius: 3px; padding: 4px 8px; background: var(--shade); border: 1px solid var(--line-soft); color: #555; font-size: 11px; }
+    .bar { height: 12px; background: #fff; border: 1px solid var(--line); border-radius: 2px; overflow: hidden; margin: 10px 0 16px; }
+    .bar span { display: block; height: 100%; width: 77%; background: #b8b8b8; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .mini-box { height: 56px; background: var(--panel); border: 1px solid var(--line-soft); border-radius: 3px; padding: 9px; }
+    .tag-grid { display: flex; flex-wrap: wrap; gap: 7px; }
+    .tag { height: 24px; min-width: 60px; border-radius: 3px; background: var(--shade) !important; border: 1px solid var(--line); }
+    .context { height: 160px; background: var(--panel); border: 1px solid var(--line-soft); border-radius: 3px; margin-top: 10px; padding: 10px; }
+    .compare-row { height: 32px; background: var(--panel); border: 1px solid var(--line); border-radius: 3px; margin-top: 7px; }
+
+    .initial-page { --w: 1366px; --h: 768px; }
+    .result-page { --w: 1366px; --h: 1600px; }
+    .initial-page .result-only, .result-page .initial-only { display: none; }
+  </style>
+</head>
+<body>
+  <div class="canvas">
+    <header class="topbar">
+      <div class="brand"><span class="yt-icon"></span><span>Content</span><span>Checker</span></div>
+      <div style="display:flex;align-items:center;justify-content:center;">
+        <div class="searchbar initial-only">Paste URL YouTube atau Video ID...</div>
+        <div class="searchbar result-only" style="color:#f1f5f9;font-weight:700;">https://www.youtube.com/watch?v=ryWO0T1GTNU&amp;t=4829s</div>
+        <div class="search-action">⌕</div>
+      </div>
+      <div class="safety"><span style="color:#63a0ff">♢</span> AI Safety</div>
+    </header>
+
+    <main class="main">
+      <aside class="sidebar">
+        <div class="label">Pilih Model AI</div>
+        <div class="model active">biLSTM <span class="dot"></span></div>
+        <div class="model">CNN-biLSTM</div>
+        <div class="model">CNN-biLSTM-Attention</div>
+        <div class="model">biLSTM-Attention</div>
+        <div class="note"><strong>Tentang Model</strong>Model ditraining dengan 40.044 video YouTube untuk mendeteksi konten yang tidak layak untuk anak-anak.</div>
+      </aside>
+
+      <section class="content initial-only">
+        <div class="empty">
+          <div class="empty-inner">
+            <div class="large-icon"><span class="yt-icon"></span></div>
+            <h1>YouTube Content Checker</h1>
+            <p class="subcopy">Paste URL atau Video ID YouTube di atas, lalu pilih model AI untuk menganalisis apakah konten aman untuk anak-anak.</p>
+            <div class="feature-grid">
+              <div class="feature"><span class="tiny-icon" style="color:#36e48b"></span> Deteksi Konten</div>
+              <div class="feature"><span class="tiny-icon" style="color:#67a4ff"></span> AI Summary</div>
+              <div class="feature"><span class="tiny-icon" style="color:#f36b5f"></span> Kata Kasar</div>
+              <div class="feature"><span class="tiny-icon" style="color:#bd86ff"></span> Model Comparison</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="content result-only">
+        <div class="result-layout">
+          <div class="video-panel">
+            <div class="thumb"><div class="badge">Inappropriate</div><div class="play"></div></div>
+            <div class="line-title"></div>
+            <div class="meta"><span>Channel</span><span>362.8Rb views</span><span>6.6Rb likes</span><span>871 komentar</span><span>1 tahun lalu</span></div>
+            <div class="chips"><span class="chip"></span><span class="chip"></span><span class="chip"></span><span class="chip"></span><span class="chip"></span><span class="chip"></span></div>
+            <div class="desc"><div class="skeleton" style="width:98%"></div><div class="skeleton" style="width:84%"></div></div>
+            <div class="section-head">Top Comments</div>
+            <div class="comment"><div class="skeleton" style="width:22%"></div></div>
+            <div class="comment"><div class="skeleton" style="width:86%"></div></div>
+            <div class="comment"><div class="skeleton" style="width:76%"></div></div>
+            <div class="transcript"><div class="section-head" style="margin:0 0 12px">Transcript</div><div class="skeleton" style="width:98%"></div><div class="skeleton" style="width:92%"></div><div class="skeleton" style="width:95%"></div><div class="skeleton" style="width:64%"></div></div>
+          </div>
+
+          <aside class="right-rail">
+            <div class="card red">
+              <div class="card-title">Hasil Deteksi <span class="pill">Inappropriate</span></div>
+              <div style="display:flex;justify-content:space-between;color:var(--muted);font-size:12px;"><span>Appropriate 23%</span><span>Inappropriate 77%</span></div>
+              <div class="bar"><span></span></div>
+              <div class="two-col"><div class="mini-box"><div class="skeleton" style="width:70%"></div><div class="skeleton" style="width:46%"></div></div><div class="mini-box"><div class="skeleton" style="width:70%"></div><div class="skeleton" style="width:62%"></div></div></div>
+            </div>
+            <div class="card red">
+              <div class="card-title">Kata Tidak Pantas <span class="pill">Berat</span></div>
+              <div class="tag-grid"><span class="tag"></span><span class="tag"></span><span class="tag"></span><span class="tag"></span><span class="tag"></span><span class="tag"></span><span class="tag"></span><span class="tag"></span></div>
+              <div class="context"><div class="skeleton" style="width:96%"></div><div class="skeleton" style="width:90%"></div><div class="skeleton" style="width:86%"></div><div class="skeleton" style="width:94%"></div></div>
+              <div class="context" style="height:165px"></div>
+              <div class="context" style="height:165px"></div>
+              <div class="context" style="height:165px"></div>
+            </div>
+            <div class="card purple">
+              <div class="card-title">Analisis Konten <span class="pill" style="color:#e6a3ff">Risiko tinggi</span></div>
+              <div class="tag-grid"><span class="tag" style="background:rgba(239,68,68,.25)"></span><span class="tag" style="background:rgba(219,39,119,.25)"></span><span class="tag" style="background:rgba(234,179,8,.25)"></span><span class="tag" style="background:rgba(168,85,247,.25)"></span><span class="tag" style="background:rgba(59,130,246,.25)"></span></div>
+              <div class="two-col" style="margin-top:14px;"><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div><div class="mini-box"></div></div>
+            </div>
+            <div class="card"><div class="card-title">Coba Model Lain</div><div class="compare-row"></div><div class="compare-row"></div><div class="compare-row"></div></div>
+          </aside>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const page = new URLSearchParams(location.search).get('page') || 'initial';
+    document.body.className = page === 'result' ? 'result-page' : 'initial-page';
+  </script>
+</body>
+</html>

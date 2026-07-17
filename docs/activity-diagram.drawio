@@ -1,0 +1,107 @@
+<mxfile host="app.diagrams.net" modified="2026-07-16T00:00:00.000Z" agent="Codex" version="24.7.17" type="device">
+  <diagram id="simple-activity" name="Activity Diagram">
+    <mxGraphModel dx="1200" dy="820" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="820" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="Activity Diagram - YouTube Content Checker" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=22;fontStyle=1;fontColor=#111827;" vertex="1" parent="1">
+          <mxGeometry x="320" y="30" width="560" height="36" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="lane_user" value="User" style="swimlane;html=1;startSize=34;horizontal=0;fillColor=#eff6ff;strokeColor=#2563eb;fontSize=15;fontStyle=1;container=1;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="130" y="90" width="430" height="680" as="geometry"/>
+        </mxCell>
+        <mxCell id="lane_system" value="Sistem" style="swimlane;html=1;startSize=34;horizontal=0;fillColor=#f8fafc;strokeColor=#475569;fontSize=15;fontStyle=1;container=1;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="560" y="90" width="510" height="680" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="start" value="" style="ellipse;html=1;shape=startState;fillColor=#111827;strokeColor=#111827;" vertex="1" parent="lane_user">
+          <mxGeometry x="190" y="42" width="28" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="u_open" value="Membuka aplikasi" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#dbeafe;strokeColor=#2563eb;fontSize=13;fontColor=#111827;" vertex="1" parent="lane_user">
+          <mxGeometry x="120" y="95" width="170" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="s_models" value="Menampilkan daftar model AI" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#ffffff;strokeColor=#475569;fontSize=13;fontColor=#111827;" vertex="1" parent="lane_system">
+          <mxGeometry x="150" y="95" width="190" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="u_input" value="Memasukkan URL / ID video" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#dbeafe;strokeColor=#2563eb;fontSize=13;fontColor=#111827;" vertex="1" parent="lane_user">
+          <mxGeometry x="110" y="180" width="190" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="u_choose" value="Memilih model AI" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#dbeafe;strokeColor=#2563eb;fontSize=13;fontColor=#111827;" vertex="1" parent="lane_user">
+          <mxGeometry x="110" y="265" width="190" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="u_submit" value="Menekan tombol analisis" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#dbeafe;strokeColor=#2563eb;fontSize=13;fontColor=#111827;" vertex="1" parent="lane_user">
+          <mxGeometry x="110" y="350" width="190" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="s_validate" value="Memvalidasi URL / ID video" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#ffffff;strokeColor=#475569;fontSize=13;fontColor=#111827;" vertex="1" parent="lane_system">
+          <mxGeometry x="150" y="350" width="190" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="decision_valid" value="Valid?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontSize=13;fontColor=#111827;" vertex="1" parent="lane_system">
+          <mxGeometry x="205" y="425" width="80" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="s_error" value="Menampilkan pesan error" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#fee2e2;strokeColor=#dc2626;fontSize=13;fontColor=#111827;" vertex="1" parent="lane_system">
+          <mxGeometry x="35" y="510" width="180" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="s_process" value="Mengambil data video dan memproses teks" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#ffffff;strokeColor=#475569;fontSize=13;fontColor=#111827;" vertex="1" parent="lane_system">
+          <mxGeometry x="270" y="510" width="205" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="s_predict" value="Melakukan prediksi konten" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#dcfce7;strokeColor=#16a34a;fontSize=13;fontColor=#111827;" vertex="1" parent="lane_system">
+          <mxGeometry x="280" y="590" width="185" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="s_result" value="Menampilkan hasil deteksi dan analisis" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#ffffff;strokeColor=#475569;fontSize=13;fontColor=#111827;" vertex="1" parent="lane_system">
+          <mxGeometry x="270" y="675" width="205" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="u_view" value="Melihat hasil analisis" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#dbeafe;strokeColor=#2563eb;fontSize=13;fontColor=#111827;" vertex="1" parent="lane_user">
+          <mxGeometry x="110" y="675" width="190" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="end" value="" style="ellipse;html=1;shape=endState;fillColor=#111827;strokeColor=#111827;" vertex="1" parent="lane_user">
+          <mxGeometry x="190" y="610" width="30" height="30" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e_start_open" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#111827;" edge="1" parent="lane_user" source="start" target="u_open">
+          <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_open_models" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#111827;" edge="1" parent="1" source="u_open" target="s_models">
+          <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_models_input" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#111827;" edge="1" parent="1" source="s_models" target="u_input">
+          <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_input_choose" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#111827;" edge="1" parent="lane_user" source="u_input" target="u_choose">
+          <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_choose_submit" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#111827;" edge="1" parent="lane_user" source="u_choose" target="u_submit">
+          <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_submit_validate" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#111827;" edge="1" parent="1" source="u_submit" target="s_validate">
+          <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_validate_decision" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#111827;" edge="1" parent="lane_system" source="s_validate" target="decision_valid">
+          <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_invalid" value="Tidak" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#dc2626;fontSize=12;fontColor=#991b1b;labelBackgroundColor=#ffffff;" edge="1" parent="lane_system" source="decision_valid" target="s_error">
+          <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_valid" value="Ya" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#16a34a;fontSize=12;fontColor=#166534;labelBackgroundColor=#ffffff;" edge="1" parent="lane_system" source="decision_valid" target="s_process">
+          <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_error_input" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#dc2626;" edge="1" parent="1" source="s_error" target="u_input">
+          <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_process_predict" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#111827;" edge="1" parent="lane_system" source="s_process" target="s_predict">
+          <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_predict_result" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#111827;" edge="1" parent="lane_system" source="s_predict" target="s_result">
+          <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_result_view" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#111827;" edge="1" parent="1" source="s_result" target="u_view">
+          <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_view_end" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#111827;" edge="1" parent="lane_user" source="u_view" target="end">
+          <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

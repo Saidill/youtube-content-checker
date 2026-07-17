@@ -1,0 +1,67 @@
+<mxfile host="app.diagrams.net" modified="2026-07-16T00:00:00.000Z" agent="Codex" version="24.7.17" type="device">
+  <diagram id="simple-use-case" name="Use Case Diagram">
+    <mxGraphModel dx="1200" dy="720" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="720" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="Use Case Diagram - YouTube Content Checker" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=22;fontStyle=1;fontColor=#111827;" vertex="1" parent="1">
+          <mxGeometry x="300" y="35" width="600" height="36" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="system" value="Sistem" style="swimlane;whiteSpace=wrap;html=1;rounded=0;startSize=36;fillColor=#ffffff;strokeColor=#111827;fontSize=16;fontStyle=1;container=1;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="320" y="105" width="620" height="510" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="actor_user" value="User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=15;fontStyle=1;fontColor=#111827;" vertex="1" parent="1">
+          <mxGeometry x="120" y="290" width="70" height="120" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="uc_input" value="Masukkan URL / ID Video YouTube" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;fontSize=13;fontColor=#111827;" vertex="1" parent="system">
+          <mxGeometry x="65" y="70" width="210" height="62" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc_model" value="Pilih Model AI" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;fontSize=13;fontColor=#111827;" vertex="1" parent="system">
+          <mxGeometry x="65" y="160" width="210" height="62" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc_analyze" value="Analisis Konten Video" style="ellipse;whiteSpace=wrap;html=1;fillColor=#bfdbfe;strokeColor=#1d4ed8;fontSize=14;fontStyle=1;fontColor=#111827;" vertex="1" parent="system">
+          <mxGeometry x="330" y="142" width="220" height="74" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc_result" value="Lihat Hasil Deteksi" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;fontSize=13;fontColor=#111827;" vertex="1" parent="system">
+          <mxGeometry x="205" y="275" width="210" height="62" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc_rerun" value="Ganti Model untuk Prediksi Ulang" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e0f2fe;strokeColor=#0284c7;fontSize=13;fontColor=#111827;" vertex="1" parent="system">
+          <mxGeometry x="205" y="365" width="210" height="62" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e_user_input" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;strokeColor=#111827;" edge="1" parent="1" source="actor_user" target="uc_input">
+          <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_user_model" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;strokeColor=#111827;" edge="1" parent="1" source="actor_user" target="uc_model">
+          <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_user_analyze" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;strokeColor=#111827;" edge="1" parent="1" source="actor_user" target="uc_analyze">
+          <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_user_result" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;strokeColor=#111827;" edge="1" parent="1" source="actor_user" target="uc_result">
+          <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_user_rerun" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;strokeColor=#111827;" edge="1" parent="1" source="actor_user" target="uc_rerun">
+          <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e_input_analyze" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="endArrow=open;html=1;rounded=0;dashed=1;strokeWidth=1.5;strokeColor=#64748b;fontSize=11;fontColor=#475569;labelBackgroundColor=#ffffff;" edge="1" parent="system" source="uc_analyze" target="uc_input">
+          <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_model_analyze" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="endArrow=open;html=1;rounded=0;dashed=1;strokeWidth=1.5;strokeColor=#64748b;fontSize=11;fontColor=#475569;labelBackgroundColor=#ffffff;" edge="1" parent="system" source="uc_analyze" target="uc_model">
+          <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_result_analyze" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="endArrow=open;html=1;rounded=0;dashed=1;strokeWidth=1.5;strokeColor=#64748b;fontSize=11;fontColor=#475569;labelBackgroundColor=#ffffff;" edge="1" parent="system" source="uc_result" target="uc_analyze">
+          <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_rerun_analyze" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="endArrow=open;html=1;rounded=0;dashed=1;strokeWidth=1.5;strokeColor=#0284c7;fontSize=11;fontColor=#0369a1;labelBackgroundColor=#ffffff;" edge="1" parent="system" source="uc_rerun" target="uc_analyze">
+          <mxGeometry width="50" height="50" relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
