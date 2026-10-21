@@ -73,3 +73,6 @@ backend/models_v1/
 *.ckpt
 data/
 datasets/
+
+# TypeScript
+*.tsbuildinfo

@@ -15,25 +15,36 @@ Aplikasi deteksi konten YouTube berbasis AI
 ```
 youtube-content-checker/
 ├── backend/
-│   ├── main.py              ← FastAPI server
+│   ├── main.py                 ← entry point (uvicorn main:app)
+│   ├── app/
+│   │   ├── config.py           ← API key, path, MAX_LEN, threshold, registry model + metrik
+│   │   ├── schemas.py          ← skema request
+│   │   ├── api.py              ← route FastAPI (orkestrasi)
+│   │   ├── ml/                 ← preprocessing, load model, inference
+│   │   ├── analysis/           ← deteksi kata kasar & fitur teks (rule-based)
+│   │   └── services/           ← YouTube API, transcript, Gemini
+│   ├── tests/                  ← unit test (pytest)
 │   ├── requirements.txt
-│   ├── .env                 ← API keys (buat sendiri dari .env.example)
-│   └── models/              ← Letakkan file .h5 dan tokenizer.pkl di sini
+│   ├── requirements-dev.txt
+│   ├── .env                    ← API keys (buat sendiri dari .env.example)
+│   └── models/                 ← Letakkan file .h5 dan tokenizer.pkl di sini
 │       ├── tokenizer.pkl
 │       ├── bilstm_headtail_content_moderation.h5
 │       ├── cnn_bilstm_content_moderation.h5
 │       ├── bilstm_attention_content_moderation.h5
 │       └── cnn_bilstm_attention.h5
-└── frontend/
-    ├── src/
-    │   ├── app/
-    │   │   ├── page.tsx     ← Halaman utama
-    │   │   ├── layout.tsx
-    │   │   └── globals.css
-    │   └── lib/
-    │       └── api.ts       ← Helper API calls
-    ├── package.json
-    └── ...
+├── frontend/
+│   └── src/
+│       ├── app/page.tsx        ← komposisi halaman
+│       ├── hooks/useAnalysis.ts← state & alur analisis
+│       ├── components/         ← komponen UI
+│       └── lib/                ← API client, tipe, helper format
+└── notebook/                   ← notebook training tiap arsitektur
+```
+
+Jalankan test backend:
+```bash
+cd backend && pip install -r requirements-dev.txt && pytest
 ```
 
 ---
@@ -158,5 +169,5 @@ Frontend berjalan di: http://localhost:3000
 | Backend | FastAPI, Python 3.10+ |
 | AI Model | TensorFlow/Keras (.h5) |
 | YouTube Data | YouTube Data API v3 |
-| AI Summary | Google Gemini 1.5 Flash |
+| AI Summary | Google Gemini 2.5 Flash / Flash-Lite |
 | HTTP Client | Axios (frontend), httpx (backend) |

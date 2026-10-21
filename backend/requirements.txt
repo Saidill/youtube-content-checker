@@ -5,3 +5,5 @@ python-dotenv==1.0.1
 tensorflow==2.19.0
 numpy==1.26.4
 pydantic==2.7.1
+youtube-transcript-api==1.2.4
+yt-dlp==2026.3.17

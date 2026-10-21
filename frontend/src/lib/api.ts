@@ -1,10 +1,12 @@
 import axios from 'axios'
 
-const api = axios.create({ baseURL: 'http://localhost:8000' })
+const api = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
+})
 
 export function extractVideoId(input: string): string | null {
   const patterns = [
-    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/,
     /^([a-zA-Z0-9_-]{11})$/,
   ]
   for (const p of patterns) {
@@ -12,6 +14,14 @@ export function extractVideoId(input: string): string | null {
     if (m) return m[1]
   }
   return null
+}
+
+/** Ambil pesan error dari response FastAPI ({ detail }), atau fallback. */
+export function errorMessage(e: unknown, fallback: string): string {
+  if (axios.isAxiosError(e) && typeof e.response?.data?.detail === 'string') {
+    return e.response.data.detail
+  }
+  return fallback
 }
 
 export async function fetchModels() {
@@ -24,13 +34,12 @@ export async function analyzeVideo(videoId: string, modelName: string) {
   return data as AnalysisResult
 }
 
-export async function predictOnly(videoId: string, modelName: string, combinedText: string) {
+export async function predictOnly(modelName: string, combinedText: string) {
   const { data } = await api.post('/predict-only', {
-    video_id: videoId,
     model_name: modelName,
     combined_text: combinedText,
   })
-  return data as AnalysisResult['prediction']
+  return data as Prediction
 }
 
 export interface ModelInfo {
@@ -41,12 +50,23 @@ export interface ModelInfo {
   f1: string
 }
 
+export interface Prediction {
+  label: number
+  label_text: string
+  probability: number
+  confidence: number
+  confidence_label: string
+  model_used: string
+}
+
 export interface ProfanityResult {
   found: string[]
   frequency: Record<string, number>
   count: number
   severity: 'clean' | 'mild' | 'moderate' | 'severe'
   sentences: string[]
+  highlighted_text: string
+  flagged_ambiguous: string[]
 }
 
 export interface TextFeatures {
@@ -78,18 +98,11 @@ export interface AnalysisResult {
     embed_url: string
     watch_url: string
     transcript_info: string
+    transcript_method: 'youtube-transcript-api' | 'yt-dlp' | 'none'
     has_transcript: boolean
   }
-  prediction: {
-    label: number
-    label_text: string
-    probability: number
-    confidence: number
-    confidence_label: string
-    model_used: string
-    source: string
-  }
-  profanity:     ProfanityResult
+  prediction: Prediction
+  profanity: ProfanityResult
   text_features: TextFeatures
   ai: {
     summary: string
@@ -98,6 +111,5 @@ export interface AnalysisResult {
     from_cache: boolean
   }
   comments_preview: string[]
-  transcript_info: string
   combined_text: string
 }
